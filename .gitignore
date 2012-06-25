@@ -1,0 +1,15 @@
+*~
+*.pyc
+*.orig
+
+bk_planner/bin/
+bk_planner/build/
+bk_planner/lib/
+
+bk_sbpl_lattice_planner/build/
+bk_sbpl_lattice_planner/lib/
+bk_sbpl_lattice_planner/msg_gen/
+
+segment_lib/bin/
+segment_lib/build/
+segment_lib/lib/
