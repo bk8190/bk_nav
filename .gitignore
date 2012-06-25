@@ -9,6 +9,7 @@ bk_planner/lib/
 bk_sbpl_lattice_planner/build/
 bk_sbpl_lattice_planner/lib/
 bk_sbpl_lattice_planner/msg_gen/
+bk_sbpl_lattice_planner/src/bk_sbpl_lattice_planner/msg/
 
 segment_lib/bin/
 segment_lib/build/
