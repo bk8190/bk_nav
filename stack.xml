@@ -1,0 +1,9 @@
+<stack>
+  <description brief="bk_nav">bk_nav</description>
+  <author>Maintained by roberto</author>
+  <license></license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/bk_nav</url>
+  <depend stack="ros" />
+
+</stack>
