@@ -39,16 +39,21 @@
 		
 		<!-- Topic remappings -->
 		<!--remap from="goal" to="/move_base_simple/goal" /-->
-		<remap from="goal_with_covariance" to="/person_tracker/goal_with_covariance" />
+		<!--remap from="goal_with_covariance" to="/person_tracker/goal_with_covariance" /-->
 		<remap from="plan" to="plan" />
 		<remap from="plan_visualization" to="plan_visualization" />
 	</node>
 	
 	<!-- Node allows planner to be controlled from rviz for debugging -->
-	<node pkg="bk_planner" type="covariance_faker" name="covariance_faker_rviz_to_person_tracker">
+	<node pkg="bk_planner" type="covariance_faker" name="covariance_faker_rviz_to_planner">
 		<remap from="pose"     to="/goal"               />
-		<remap from="pose_cov" to="/person_tracker/goal_with_covariance" />
+		<remap from="pose_cov" to="/goal_with_covariance" />
 	</node>
-	
+
+	<!-- Node connects planner to tourguide executive -->
+	<node pkg="bk_planner" type="covariance_faker" name="covariance_faker_tourguide_to_planner">
+		<remap from="pose"     to="/move_base/goal"               />
+		<remap from="pose_cov" to="/goal_with_covariance" />
+	</node>
 	
 </launch>
