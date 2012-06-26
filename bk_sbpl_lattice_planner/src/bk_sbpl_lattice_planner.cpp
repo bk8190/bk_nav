@@ -360,6 +360,7 @@ BKSBPLLatticePlanner::makeSegmentPlan(const PoseStamped& start,
   planner_->set_search_mode(false);
 
 	// Run the planner
+  ros::Time plan_time = ros::Time::now();
   ROS_DEBUG("[sbpl_lattice_planner] run planner");
   vector<int> solution_stateIDs;
   int solution_cost;
@@ -379,7 +380,6 @@ BKSBPLLatticePlanner::makeSegmentPlan(const PoseStamped& start,
   }
 
   ROS_DEBUG("size of solution=%d", (int)solution_stateIDs.size());
-  ros::Time plan_time = ros::Time::now();
 
 	// The planner returned a state ID path.  Convert this into a path-segment path.
   vector<EnvNAVXYTHETALAT3Dpt_t>  sbpl_path;   // Plan of points for visualization
