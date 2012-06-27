@@ -162,7 +162,6 @@ BKPlanningThread::startRecovery()
 void
 BKPlanningThread::doRecovery()
 {
-	//ROS_INFO_THROTTLE(5,"[planning] In recovery");
 	
 	// TODO: Make a recovery counter/timer that will do several things in turn
 	// (There is a replan attempt after each step, if it succeeds, recovery is done.)
@@ -174,6 +173,8 @@ BKPlanningThread::doRecovery()
 	// If we are scheduled for a recovery action
 	if( ros::Time::now() - next_recovery_action_ > ros::Duration(0) )
 	{
+		ROS_INFO_STREAM("[planning] In recovery, state " << recovery_counter_);
+
 		switch( recovery_counter_ )
 		{
 			// Clear obstacles from costmap
@@ -187,6 +188,7 @@ BKPlanningThread::doRecovery()
 			
 			// Back up
 			case 1:
+				next_recovery_action_ = ros::Time::now() + ros::Duration(1.0);
 				recovery_counter_++;
 				break;
 			
@@ -197,14 +199,14 @@ BKPlanningThread::doRecovery()
 			// Loop around
 			default:
 				recovery_counter_ = 0;
-		}
-		
-		// Try to make a full replan.  If it succeeds, get out of recovery.
-		if(parent_->gotNewGoal()) {
-			if( doFullReplan() ) {
-				ROS_INFO("[planning] Yay, we got out of recovery.");
-				setPlannerState(NEED_PARTIAL_REPLAN);
-			}
+
+			// Try to make a full replan.  If it succeeds, get out of recovery.
+			//if(parent_->gotNewGoal()) {
+				if( doFullReplan() ) {
+					ROS_INFO("[planning] Yay, we got out of recovery.");
+					setPlannerState(NEED_PARTIAL_REPLAN);
+				}
+			//}
 		}
 	}
 }
