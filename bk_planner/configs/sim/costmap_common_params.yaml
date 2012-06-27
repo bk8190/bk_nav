@@ -1,7 +1,7 @@
 map_type: voxel
 
-obstacle_range: 5.0
-raytrace_range: 6.0 
+obstacle_range: 15.0
+raytrace_range: 16.0 
 footprint: [[0.3048, 0.3048], [0.3048, -0.3048], [-0.711, -0.3048], [-0.711, 0.3048]]
 #footprint_padding: 0.25
 inflation_radius: 1.0
@@ -10,6 +10,8 @@ inflation_radius: 1.0
 #cost_scaling_factor: 1.45
 cost_scaling_factor: 11.8
 
-observation_sources: base_laser
+observation_sources: base_laser obstacle_map_cloud
 
 base_laser: {sensor_frame: base_laser_link, data_type: LaserScan, topic: base_scan, marking: true, clearing: true}
+
+obstacle_map_cloud: {sensor_frame: base_link, data_type: PointCloud, topic: /obstacle_map_cloud, marking: true, clearing: true, max_obstacle_height: .1, min_obstacle_height: -.1}
