@@ -203,7 +203,7 @@ BKPlanningThread::doRecovery()
 		if(parent_->gotNewGoal()) {
 			if( doFullReplan() ) {
 				ROS_INFO("[planning] Yay, we got out of recovery.");
-				setPlannerState(GOOD);
+				setPlannerState(NEED_PARTIAL_REPLAN);
 			}
 		}
 	}
