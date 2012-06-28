@@ -364,29 +364,16 @@ BKPlanningThread::generateFarGoals(const PoseStamped& start,
 	//potential_goals.push_back(goal);
 	
 	// Add a goal in between the robot and the true goal
-	potential_goals.push_back(getPoseOffset(newgoal,  0.00  , ds));
-	
-	potential_goals.push_back(getPoseOffset(newgoal,  .1*pi, ds*0.9));
-	potential_goals.push_back(getPoseOffset(newgoal, -.1*pi, ds*0.9));
-	
-	// Add two goals behind the true goal, offset by +-45 degrees
-	potential_goals.push_back(getPoseOffset(newgoal,  .2*pi, ds*.8));
-	potential_goals.push_back(getPoseOffset(newgoal, -.2*pi, ds*.8));
-	
-	potential_goals.push_back(getPoseOffset(newgoal,  .05*pi, ds*.8));
-	potential_goals.push_back(getPoseOffset(newgoal, -.05*pi, ds*.8));
-	
-	// Add two goals behind the true goal, offset by +-70 degrees
-	potential_goals.push_back(getPoseOffset(newgoal,  .4*pi, ds*.7));
-	potential_goals.push_back(getPoseOffset(newgoal, -.4*pi, ds*.7));
-	
-	// Add two goals behind the true goal, offset by +-135 degrees
-	potential_goals.push_back(getPoseOffset(newgoal,  .8*pi, ds*1.0));
-	potential_goals.push_back(getPoseOffset(newgoal, -.8*pi, ds*1.0));
-	
-	
-	// Add a goal 180 degrees offset
-	//potential_goals.push_back(getPoseOffset(newgoal, 1.00*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal, 0.0   , ds));
+	potential_goals.push_back(getPoseOffset(newgoal,  .1*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal, -.1*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal,  .2*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal, -.2*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal,  .4*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal, -.4*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal,  .8*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal, -.8*pi, ds));
+	potential_goals.push_back(getPoseOffset(newgoal, 1.0*pi, ds));
 	
 	// Eliminate goals in collision
 	vector<PoseStamped> cleared_goals = path_checker->getGoodPoses(potential_goals);
