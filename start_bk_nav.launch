@@ -52,7 +52,7 @@
 
 	<!-- Node connects planner to tourguide executive -->
 	<node pkg="bk_planner" type="covariance_faker" name="covariance_faker_tourguide_to_planner">
-		<remap from="pose"     to="/move_base/goal"               />
+		<remap from="pose"     to="/goal"               />
 		<remap from="pose_cov" to="/goal_with_covariance" />
 	</node>
 	

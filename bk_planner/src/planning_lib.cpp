@@ -373,8 +373,8 @@ BKPlanningThread::generateFarGoals(const PoseStamped& start,
 	potential_goals.push_back(getPoseOffset(newgoal,  .2*pi, ds*.8));
 	potential_goals.push_back(getPoseOffset(newgoal, -.2*pi, ds*.8));
 	
-	potential_goals.push_back(getPoseOffset(newgoal,  .05*pi, ds*1.3));
-	potential_goals.push_back(getPoseOffset(newgoal, -.05*pi, ds*1.3));
+	potential_goals.push_back(getPoseOffset(newgoal,  .05*pi, ds*.8));
+	potential_goals.push_back(getPoseOffset(newgoal, -.05*pi, ds*.8));
 	
 	// Add two goals behind the true goal, offset by +-70 degrees
 	potential_goals.push_back(getPoseOffset(newgoal,  .4*pi, ds*.7));
