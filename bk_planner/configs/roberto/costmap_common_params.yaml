@@ -12,9 +12,11 @@ cost_scaling_factor: 11.8
 
 observation_sources: base_laser1 obstacle_map_cloud 
 
-base_laser1: {sensor_frame: base_laser1_link, data_type: LaserScan, topic: /base_laser1_scan, marking: true, clearing: true, max_obstacle_height: 0.6, min_obstacle_height: 0.4}
+base_laser1: {sensor_frame: base_laser1_link, data_type: LaserScan, topic: /base_laser1_scan, marking: true, clearing: true, max_obstacle_height: 0.4, min_obstacle_height: 0.1}
 
 obstacle_map_cloud: {sensor_frame: base_link, data_type: PointCloud, topic: /obstacle_map_cloud, marking: true, clearing: true, max_obstacle_height: .1, min_obstacle_height: -.1}
+
+kinect_cloud: {sensor_frame: base_link, data_type: PointCloud, topic: /camera/depth/points_sliced_old, marking: true, clearing: true, max_obstacle_height: 1.0, min_obstacle_height: .04}
 
 front_sonar: {sensor_frame: front_sonar, data_type: LaserScan, topic: /front_sonar_scan, marking: true, clearing: true, max_obstacle_height: 0.8, min_obstacle_height: 0.6}
 
