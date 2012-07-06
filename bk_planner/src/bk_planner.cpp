@@ -7,7 +7,8 @@ BKPlanner::BKPlanner(std::string name, tf::TransformListener& tf):
 	priv_nh_            ("~"),
 	tf_                 (tf),
 	got_new_goal_       (false),
-	last_accepted_goal_ (ros::Time(0))
+	last_accepted_goal_ (ros::Time(0)),
+	sc_                 ()
 {
 	// Initialize the cost map and path checker
 	planner_costmap_ = shared_ptr<costmap_2d::Costmap2DROS>
@@ -88,6 +89,7 @@ dist( const PoseStamped& p1, const PoseStamped& p2 )
 void
 BKPlanner::goalCB(const PoseWithCovarianceStamped::ConstPtr& goal_cov_ptr)
 {
+	sc_.stopAll();
 	// Get the covariance
 	double cov = goal_cov_ptr->pose.covariance[0];
 	
@@ -113,6 +115,7 @@ BKPlanner::goalCB(const PoseWithCovarianceStamped::ConstPtr& goal_cov_ptr)
 	ros::Duration time_since_goal = last_accepted_goal_ - ros::Time::now();
 	if( d > goal_hysteresis_ || time_since_goal > goal_timeout_ || planner_->override_goal_generation_ )
 	{
+		sc_.say("New goal.");
 		setNewGoal(new_goal);
 		last_accepted_goal_ = ros::Time::now();
 	}

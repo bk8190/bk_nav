@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
-
+#include <sound_play/sound_play.h>
 #include <tf/transform_listener.h>
 #include <costmap_2d/costmap_2d_ros.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
@@ -79,6 +79,7 @@ namespace bk_planner {
 		ros::Subscriber goal_sub_;
 		ros::Duration   goal_timeout_;
 		double  goal_cov_thresh_;
+		sound_play::SoundClient sc_;
 		
 		// Main thread handles all ROS callbacks
 		void goalCB(const PoseWithCovarianceStamped::ConstPtr& goal);
@@ -136,6 +137,8 @@ namespace bk_planner {
 		BKPlanner* parent_;
 		boost::weak_ptr<BKFeederThread> feeder_;
 
+		sound_play::SoundClient sc_;
+		
 		// The distance of the commited path that the planner will try to maintain at all times (meters)
 		double commit_distance_;
 		// If planner can not get exactly to the target, it will try to get this far away

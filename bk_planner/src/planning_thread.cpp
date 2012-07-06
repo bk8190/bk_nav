@@ -3,7 +3,8 @@
 namespace bk_planner {
 
 BKPlanningThread::BKPlanningThread(BKPlanner* parent):
-	parent_  (parent)
+	parent_  (parent),
+	sc_      ()
 {
 	;
 	candidate_goal_pub_ = parent_->nh_.advertise<geometry_msgs::PoseArray>("candidate_poses", 1);
@@ -37,6 +38,7 @@ BKPlanningThread::BKPlanningThread(BKPlanner* parent):
 	last_scrapped_path_    = ros::Time::now();
 	scrap_path_timeout_    = ros::Duration(5.0);
 	
+	sc_.say("Planner initialized.");
 	ROS_INFO("[planning] Constructor finished");
 }
 	
@@ -155,8 +157,9 @@ BKPlanningThread::startRecovery()
 {
 	ROS_INFO("[planning] Starting recovery");
 	time_started_recovery_ = ros::Time::now();
-	next_recovery_action_  = ros::Time::now();
+	next_recovery_action_  = ros::Time::now() + ros::Duration(3);
 	recovery_counter_      = 0;
+	sc_.say("Something. is in the way.");
 }
 
 void
@@ -184,31 +187,30 @@ BKPlanningThread::doRecovery()
 				
 				next_recovery_action_ = ros::Time::now() + ros::Duration(2.0);
 				recovery_counter_++;
+				sc_.say("halp");
 				break;
 			
 			// Back up
 			case 1:
 				next_recovery_action_ = ros::Time::now() + ros::Duration(1.0);
 				recovery_counter_++;
+				sc_.say("I'm stuck");
 				break;
-			
-			
-			// TODO: the rest
-			
 			
 			// Loop around
 			default:
+				next_recovery_action_ = ros::Time::now() + ros::Duration(1.0);
 				recovery_counter_ = 0;
-
-			// Try to make a full replan.  If it succeeds, get out of recovery.
-			//if(parent_->gotNewGoal()) {
-				if( doFullReplan() ) {
-					ROS_INFO("[planning] Yay, we got out of recovery.");
-					setPlannerState(NEED_PARTIAL_REPLAN);
-				}
-			//}
+		}// switch
+		
+		// Try a full replan.  If it succeeds, get out of recovery.
+		if( doFullReplan() )
+		{
+			ROS_INFO("[planning] Yay, we got out of recovery.");
+			sc_.say("Moving.");
+			setPlannerState(NEED_PARTIAL_REPLAN);
 		}
-	}
+	}// scheduled for action
 }
 
 // TODO: Stop committing at a turn segment, and don't commit anything else until

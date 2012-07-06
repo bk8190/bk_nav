@@ -22,6 +22,7 @@
   <depend package="bk_sbpl_lattice_planner"/>
   <depend package="segment_lib"/>
   <depend package="base_local_planner"/>
+  <depend package="sound_play"/>
   
 </package>
 
