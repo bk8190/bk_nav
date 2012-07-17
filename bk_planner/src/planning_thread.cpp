@@ -183,7 +183,7 @@ BKPlanningThread::doRecovery()
 			// Clear obstacles from costmap
 			case 0:
 				ROS_INFO("[planning] Recovery: Clearing costmap");
-				parent_->planner_costmap_->resetMapOutsideWindow(1.0,1.0);
+				parent_->planner_costmap_->resetMapOutsideWindow(0.0,0.0);
 				
 				next_recovery_action_ = ros::Time::now() + ros::Duration(2.0);
 				recovery_counter_++;
